@@ -42,7 +42,7 @@ function create() {
     m.stop();
     container.remove();
   });
-  close.innerHTML = 'x';
+  close.textContent = 'x';
   setStyle(close, {
    position: 'absolute',
    top: 0,
@@ -53,7 +53,7 @@ function create() {
 
   // Need this style tag to override jscw
   const playerStyle = document.createElement('style');
-  playerStyle.innerHTML = `
+  playerStyle.textContent = `
     #${playerId} {
       background: #fff;
       border-radius: 4;

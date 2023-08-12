@@ -889,32 +889,32 @@
             }
 
             if (this.control_labels["wpm"]) {
-                this.control_labels["wpm"].innerHTML = this.wpm + "&nbsp;WpM";
+                this.control_labels["wpm"].textContent = this.wpm + " WpM";
             }
             if (this.control_labels["eff"]) {
                 if (this.eff) {
-                    this.control_labels["eff"].innerHTML = this.eff + "&nbsp;WpM";
+                    this.control_labels["eff"].textContent = this.eff + " WpM";
                 }
                 else {
-                    this.control_labels["eff"].innerHTML =  "&nbsp;(off)";
+                    this.control_labels["eff"].textContent =  " (off)";
                 }
             }
             if (this.control_labels["ews"]) {
                 if (this.ews) {
-                    this.control_labels["ews"].innerHTML = (this.ews + 1) + "&nbsp;&times;";
+                    this.control_labels["ews"].textContent = (this.ews + 1) + " x";
                 }
                 else {
-                    this.control_labels["ews"].innerHTML = "&nbsp;(off)";
+                    this.control_labels["ews"].textContent = " (off)";
                 }
             }
             if (this.control_labels["freq"]) {
-                this.control_labels["freq"].innerHTML = this.freq + "&nbsp;Hz";
+                this.control_labels["freq"].textContent = this.freq + " Hz";
             }
             if (this.control_labels["edge"]) {
-                this.control_labels["edge"].innerHTML = this.q + "&nbsp;";
+                this.control_labels["edge"].textContent = this.q + " ";
             }
             if (this.control_labels["vol"]) {
-                this.control_labels["vol"].innerHTML = Math.round(this.playvolume * 100) + "&nbsp;%";
+                this.control_labels["vol"].textContent = Math.round(this.playvolume * 100) + " %";
             }
 
             this.refresh_download_link();
@@ -1426,10 +1426,10 @@
                 var sec = obj.progressbar.value;
 
                 sec -= obj.textStart;   // start in negative time if we have vvv prefx
-                var sign = sec >= 0 ? "&nbsp;" : "-";
+                var sign = sec >= 0 ? " " : "-";
                 sec = Math.abs(sec);
 
-                obj.progresslabel.innerHTML = obj.fmtTime(sec, sign) + " /" + obj.fmtTime(obj.getLength() - obj.textStart,"");
+                obj.progresslabel.textContent = obj.fmtTime(sec, sign) + " /" + obj.fmtTime(obj.getLength() - obj.textStart,"");
 
                 if (obj.paused || obj.getRemaining() == 0) {
                     if (obj.btn_pp.src != play_svg) {
@@ -1471,7 +1471,7 @@
         // render a player with play/pause button to element "el"
         this.renderPlayer = function(el, obj) {
             var el = document.getElementById(el);
-            el.innerHTML = "";
+            el.textContent = "";
             el.style.width = '220px';
             el.style.borderWidth = 'thin';
             el.style.borderStyle= 'dashed';
@@ -1486,7 +1486,7 @@
 
             var l = document.createElement("label");
             l.htmlFor =  "pb";
-            l.innerHTML= "0:00 ";
+            l.textContent= "0:00 ";
             l.style.fontSize = "12px";
             l.style.fontWeight = "normal";
             l.style.display = "inline-block";
@@ -1597,7 +1597,7 @@
             pop.style.padding = "5px 5px";
             pop.style.fontSize = "12px";
             pop.style.visibility = "hidden";
-            pop.innerHTML = '<b>Settings</b>';
+            pop.textContent = 'Settings';
             obj.pop = pop;
 
             // controls go into a table
@@ -1621,7 +1621,7 @@
             var speed_label = document.createElement("label");
             speed_label.htmlFor = "speed";
             speed_label.style.fontSize = "12px";
-            speed_label.innerHTML = "0 WpM";
+            speed_label.textContent = "0 WpM";
 
             obj.control_labels["wpm"] = speed_label;
             obj.control_inputs["wpm"] = speed;
@@ -1651,7 +1651,7 @@
             var eff_label = document.createElement("label");
             eff_label.htmlFor = "eff";
             eff_label.style.fontSize = "12px";
-            eff_label.innerHTML = "0 WpM";
+            eff_label.textContent = "0 WpM";
 
             obj.control_labels["eff"] = eff_label;
             obj.control_inputs["eff"] = eff;
@@ -1681,7 +1681,7 @@
             var ews_label = document.createElement("label");
             ews_label.htmlFor = "ews";
             ews_label.style.fontSize = "12px";
-            ews_label.innerHTML = "0";
+            ews_label.textContent = "0";
 
             obj.control_labels["ews"] = ews_label;
             obj.control_inputs["ews"] = ews;
@@ -1711,7 +1711,7 @@
             var freq_label = document.createElement("label");
             freq_label.htmlFor = "freq";
             freq_label.style.fontSize = "12px";
-            freq_label.innerHTML = "600 Hz";
+            freq_label.textContent = "600 Hz";
 
             obj.control_labels["freq"] = freq_label;
             obj.control_inputs["freq"] = freq;
@@ -1741,7 +1741,7 @@
             var edge_label = document.createElement("label");
             edge_label.htmlFor = "edge";
             edge_label.style.fontSize = "12px";
-            edge_label.innerHTML = "10";
+            edge_label.textContent = "10";
 
             obj.control_labels["edge"] = edge_label;
             obj.control_inputs["edge"] = edge;
@@ -1771,7 +1771,7 @@
             var vol_label = document.createElement("label");
             vol_label.htmlFor = "vol";
             vol_label.style.fontSize = "12px";
-            vol_label.innerHTML = "50%";
+            vol_label.textContent = "50%";
 
             obj.control_labels["vol"] = vol_label;
             obj.control_inputs["vol"] = vol;
