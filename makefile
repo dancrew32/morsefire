@@ -1,8 +1,8 @@
 make:
 	vim makefile
 
-ext:
-	npm install --global web-ext
+deps:
+	npm install --global web-ext && npm install --global prettier
 
 run:
 	web-ext run
@@ -10,8 +10,11 @@ run:
 lint:
 	web-ext lint
 
-build: lint
+pretty:
+	prettier morsefire.js background.js -w
+
+build: pretty lint
 	web-ext build --overwrite-dest
 
-checkin: lint
+checkin: pretty lint
 	git add -Ap && git commit && git push origin main

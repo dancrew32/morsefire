@@ -3,7 +3,7 @@ const id = "morsefire";
 browser.contextMenus.create({
   id,
   title: "Play selection as Morse code",
-  contexts: ["selection"]
+  contexts: ["selection"],
 });
 
 browser.contextMenus.onClicked.addListener((info, tab) => {
@@ -11,4 +11,3 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
     browser.tabs.sendMessage(tab.id, { action: id, text: info.selectionText });
   }
 });
-
