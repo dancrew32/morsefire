@@ -32,8 +32,6 @@ function create() {
     position: "fixed",
     bottom: 0,
     left: 0,
-    // transform: 'scale(0.9)',
-    // 'transform-origin': 'bottom left',
   });
 
   // close button
@@ -61,7 +59,7 @@ function create() {
       border: 0 !important; 
       opacity: 0.95;
       transition: opacity .2s ease-in-out;
-      margin:  0 !important;
+      margin: 0 !important;
     }
 
     #${playerId}:hover {
@@ -80,8 +78,8 @@ function create() {
 
   // append everything
   container.appendChild(playerStyle);
+  container.appendChild(close); // close before player important (z-index thing)
   container.appendChild(player);
-  container.appendChild(close);
   document.body.appendChild(container);
 
   return container;
@@ -91,7 +89,11 @@ browser.runtime.onMessage.addListener((message) => {
   if (message.action !== containerId) {
     return;
   }
-  m.stop(); // stop any existing plays
+  try {
+    m.stop(); // stop any existing plays
+  } catch (err) {
+    // nothing to stop
+  }
   getEl() ?? create();
   m.setText(message.text);
   m.renderPlayer(playerId, m);
