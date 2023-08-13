@@ -14,7 +14,8 @@ pretty:
 	prettier morsefire.js background.js -w
 
 build: pretty lint
-	web-ext build --overwrite-dest
+	web-ext build --overwrite-dest \
+		--ignore-files=makefile icons/icon_128.png screenshots/*
 
 checkin: pretty lint
 	git add -Ap && git commit && git push origin main
