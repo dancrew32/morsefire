@@ -11,13 +11,10 @@ A Firefox extension that plays highlighted text as Morse code.
 
 ## TODO
 
-1. Settings management for defaults
-2. Ability to relocate player
-3. Method to avoid right click menu, playing highlighted text immediately
-4. Method to play the entire page, e.g. just the article tag
-5. Icons
-6. Publish firefox extension
+1. Ability to relocate player
+2. Method to avoid right click menu, playing highlighted text immediately
+3. Method to play the entire page, e.g. just the article tag
 
 ## Credit
 
-JSCW Player by https://fkurz.net/ham/jscwlib.html
+* JSCW Player by https://fkurz.net/ham/jscwlib.html
