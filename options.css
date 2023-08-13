@@ -1,12 +1,19 @@
 body {
   padding: 10px;
-  max-width: 100px;
+  max-width: 200px;
+}
+label {
+  margin-bottom: 4px;
 }
 input {
-  padding: 4px 8px;
+  padding: 8px;
   margin-bottom: 8px;
+  border: 1px solid #555;
+  border-radius: 4px;
 }
-
+summary {
+  padding: 4px;
+}
 button {
   margin-top: 8px;
   padding: 8px;

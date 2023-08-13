@@ -5,10 +5,31 @@ const containerCloseId = "morsefire_close";
 const playerId = "morsefire_player";
 
 let cw;
+let cwSettings;
 browser.runtime
   .sendMessage({ action: "morsefire_settings_get" })
   .then((settings) => {
-    cw = new jscw(settings);
+    cwSettings = settings;
+    cw = new jscw(cwSettings);
+
+    if (cwSettings.onHighlight) {
+      document.addEventListener("mouseup", (e) => {
+        if (e.target.closest(`#${containerId}`)) {
+          return;
+        }
+        const selectedText = window.getSelection().toString().trim();
+        if (selectedText) {
+          handleText(selectedText);
+        }
+      });
+
+      document.addEventListener("mousedown", (e) => {
+        if (e.target.closest(`#${containerId}`)) {
+          return;
+        }
+        tryStop();
+      });
+    }
   });
 
 function getEl(id) {
@@ -19,6 +40,14 @@ function setStyle(el, style) {
   el.style.cssText = Object.keys(style)
     .map((key) => `${key}:${style[key]};`)
     .join(" ");
+}
+
+function tryStop() {
+  try {
+    cw.stop();
+  } catch (err) {
+    // nothing to stop
+  }
 }
 
 function create() {
@@ -35,11 +64,7 @@ function create() {
   const close = document.createElement("div");
   close.id = containerCloseId;
   close.addEventListener("click", () => {
-    try {
-      cw.stop();
-    } catch (err) {
-      // nothing to stop
-    }
+    tryStop();
     container.remove();
   });
   close.textContent = "x";
@@ -88,17 +113,17 @@ function create() {
   return container;
 }
 
+function handleText(text) {
+  tryStop();
+  getEl() ?? create();
+  cw.setText(text);
+  cw.renderPlayer(playerId, cw);
+  cw.play();
+}
+
 browser.runtime.onMessage.addListener((message) => {
   if (message.action !== containerId) {
     return;
   }
-  try {
-    cw.stop(); // stop any existing plays
-  } catch (err) {
-    // nothing to stop
-  }
-  getEl() ?? create();
-  cw.setText(message.text);
-  cw.renderPlayer(playerId, cw);
-  cw.play();
+  handleText(message.text);
 });

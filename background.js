@@ -6,6 +6,7 @@ const defaultSettings = {
   eff: 15,
   ews: 0.1,
   playvolume: 0.1,
+  onHighlight: false,
 };
 
 function saveSettings(settings) {

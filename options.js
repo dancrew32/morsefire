@@ -1,4 +1,4 @@
-const fields = ["wpm", "freq", "eff", "ews", "playvolume"];
+const fields = ["wpm", "freq", "eff", "ews", "playvolume", "onHighlight"];
 
 document.addEventListener("DOMContentLoaded", () => {
   // Load current settings and populate the form
@@ -6,7 +6,13 @@ document.addEventListener("DOMContentLoaded", () => {
     .sendMessage({ action: "morsefire_settings_get" })
     .then((settings) => {
       fields.forEach((field) => {
-        document.getElementById(field).value = settings[field];
+        switch (field) {
+          case "onHighlight":
+            document.getElementById(field).checked = settings[field];
+            break;
+          default:
+            document.getElementById(field).value = settings[field];
+        }
       });
     });
 
@@ -14,7 +20,13 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("save").addEventListener("click", () => {
     const settings = {};
     fields.forEach((field) => {
-      settings[field] = parseInt(document.getElementById(field).value, 10);
+      switch (field) {
+        case "onHighlight":
+          settings[field] = document.getElementById(field).checked;
+          break;
+        default:
+          settings[field] = parseInt(document.getElementById(field).value, 10);
+      }
     });
 
     // Repeat for other settings
