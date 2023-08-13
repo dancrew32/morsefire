@@ -1,0 +1,14 @@
+body {
+  padding: 10px;
+  max-width: 100px;
+}
+input {
+  padding: 4px 8px;
+  margin-bottom: 8px;
+}
+
+button {
+  margin-top: 8px;
+  padding: 8px;
+  text-align: center;
+}

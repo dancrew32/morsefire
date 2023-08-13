@@ -4,15 +4,12 @@ const containerId = "morsefire";
 const containerCloseId = "morsefire_close";
 const playerId = "morsefire_player";
 
-const options = {
-  wpm: 20,
-  freq: 500,
-  eff: 15,
-  ews: 0.1,
-  volume: 0.1,
-};
-
-const m = new jscw(options);
+let cw;
+browser.runtime
+  .sendMessage({ action: "morsefire_settings_get" })
+  .then((settings) => {
+    cw = new jscw(settings);
+  });
 
 function getEl(id) {
   return document.getElementById(id);
@@ -38,16 +35,21 @@ function create() {
   const close = document.createElement("div");
   close.id = containerCloseId;
   close.addEventListener("click", () => {
-    m.stop();
+    try {
+      cw.stop();
+    } catch (err) {
+      // nothing to stop
+    }
     container.remove();
   });
   close.textContent = "x";
   setStyle(close, {
     position: "absolute",
-    top: 0,
-    right: 0,
+    top: "-1px",
+    right: "2px",
     "font-family": "monospace",
     cursor: "pointer",
+    "z-index": 2,
   });
 
   // Need this style tag to override jscw
@@ -69,6 +71,7 @@ function create() {
     #${playerId} a[title="Settings"] span:first-child {
       bottom: 0 !important;
       top: auto !important;
+      z-index: 3 !important;
     }
   `;
 
@@ -90,12 +93,12 @@ browser.runtime.onMessage.addListener((message) => {
     return;
   }
   try {
-    m.stop(); // stop any existing plays
+    cw.stop(); // stop any existing plays
   } catch (err) {
     // nothing to stop
   }
   getEl() ?? create();
-  m.setText(message.text);
-  m.renderPlayer(playerId, m);
-  m.play();
+  cw.setText(message.text);
+  cw.renderPlayer(playerId, cw);
+  cw.play();
 });

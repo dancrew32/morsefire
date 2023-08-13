@@ -11,7 +11,7 @@ lint:
 	web-ext lint
 
 pretty:
-	prettier morsefire.js background.js -w
+	prettier manifest.json morsefire.js background.js options.js options.html options.css -w
 
 build: pretty lint
 	web-ext build --overwrite-dest \
