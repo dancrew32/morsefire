@@ -15,7 +15,10 @@ pretty:
 
 build: pretty lint
 	web-ext build --overwrite-dest \
-		--ignore-files=makefile icons/icon_128.png screenshots/*
+		--ignore-files=makefile icons/icon_128.png screenshots
 
 checkin: pretty lint
 	git add -Ap && git commit && git push origin main
+
+publish:
+	open https://addons.mozilla.org/en-US/developers/addon/morsefire/edit
