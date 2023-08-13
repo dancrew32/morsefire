@@ -14,20 +14,18 @@ browser.runtime
 
     if (cwSettings.onHighlight) {
       document.addEventListener("mouseup", (e) => {
-        if (e.target.closest(`#${containerId}`)) {
-          return;
-        }
-        const selectedText = window.getSelection().toString().trim();
-        if (selectedText) {
-          handleText(selectedText);
+        if (!e.target.closest(`#${containerId}`)) {
+          const selectedText = window.getSelection().toString().trim();
+          if (selectedText) {
+            handleText(selectedText);
+          }
         }
       });
 
       document.addEventListener("mousedown", (e) => {
-        if (e.target.closest(`#${containerId}`)) {
-          return;
+        if (!e.target.closest(`#${containerId}`)) {
+          tryStop();
         }
-        tryStop();
       });
     }
   });
